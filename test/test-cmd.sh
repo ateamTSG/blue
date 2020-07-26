@@ -1,14 +1,65 @@
 #!/bin/bash
 
 OC=$(which oc)
+PROJ='blue-seal-project'
 
-$OC new-app --name=db bluewhalecr.azurecr.io/mongo_custom:latest --as-test=true -l app=mongo
-sleep 2
-$OC new-app --name=app bluewhalecr.azurecr.io/rocket.chat:latest --as-test=true -l app=rc -e ROOT_URL=http://localhost -e MONGO_OPLOG_URL=mongodb://db:27017/local
-sleep 15
-DB_POD=`oc get pods -o custom-columns=POD:.metadata.name --no-headers -l app=mongo`
-echo "db_pod_name=$DB_POD"
-$OC exec $DB_POD -i -t -- mongo --eval 'printjson(rs.initiate())'
-sleep 2
-$OC expose svc/app
-$OC scale dc/app --replicas=3
+## Creating ImageStream
+$OC create -n $PROJ -f imagestream-RC.yaml
+
+
+# Deploying DB
+## Creating Deployment Config
+$OC create -n $PROJ -f deployment-db.yaml
+
+$OC get pods -o name -l app=mongo | grep pod
+if [ $? -ne 0 ]
+then
+	echo "Creating Pod"
+	sleep 5
+fi
+# Getting the pod
+DB_POD=`$OC get pods -o name -l app=mongo | awk -F'/' '{print $2}'`
+# Waiting for container to Run
+touch /tmp/db.lock
+echo "Please wait while container starting..."
+while [ -f /tmp/db.lock ]
+do
+          sleep 7
+	  $OC get pods -l app=mongo | grep -w Running
+          if [ $? -eq 0 ]
+          then
+                rm -f /tmp/db.lock
+          fi
+done
+# Initializing MongoDB
+$OC rsh -n $PROJ $DB_POD mongo --eval "printjson(rs.initiate());printjson(cfg = rs.conf());printjson(cfg.members[0].host = \"$DB_POD:27017\");printjson(rs.reconfig(cfg, {force:true}))"
+
+# Deploying APP
+$OC create -n $PROJ -f deployment-app.yaml
+
+$OC get pods -o name -l app=rc | grep pod
+if [ $? -ne 0 ]
+then
+        echo "Creating Pod"
+        sleep 5
+fi
+
+# Getting the pod
+# Waiting for container to Run
+touch /tmp/app.lock
+echo "Please wait while container starting..."
+while [ -f /tmp/app.lock ]
+do
+          sleep 7
+          $OC get pods -l app=rc | grep -w Running
+          if [ $? -eq 0 ]
+          then
+                rm -f /tmp/app.lock
+          fi
+done
+# Exposing the RC route URL
+$OC expose -n $PROJ svc/app
+echo "-------------------------------------------------------"
+echo "Connect to URL: `$OC get -n $PROJ route | awk 'NR==2{print $2}'`"
+echo "-------------------------------------------------------"
+
