@@ -34,7 +34,7 @@ metadata:
   name: app
   selfLink: /apis/apps.openshift.io/v1/namespaces/blue-seal-project/deploymentconfigs/app
 spec:
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 10
   selector:
     app: rc
@@ -105,3 +105,27 @@ status:
   replicas: 0
   unavailableReplicas: 0
   updatedReplicas: 0
+  ---
+apiVersion: v1
+items:
+- apiVersion: autoscaling/v1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    annotations:
+      autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2020-07-27T14:08:33Z","reason":"SucceededGetScale","message":"the
+        HPA controller was able to get the target''s current scale"},{"type":"ScalingActive","status":"False","lastTransitionTime":"2020-07-27T14:08:48Z","reason":"FailedGetResourceMetric","message":"the
+        HPA was unable to compute the replica count: missing request for cpu"}]'
+    creationTimestamp: "2020-07-27T14:08:18Z"
+    name: app
+    namespace: blue-seal-project
+    resourceVersion: "5863546"
+    selfLink: /apis/autoscaling/v1/namespaces/blue-seal-project/horizontalpodautoscalers/app
+    uid: 26a89b23-515c-477f-bd77-b8fb76756882
+  spec:
+    maxReplicas: 6
+    minReplicas: 3
+    scaleTargetRef:
+      apiVersion: apps.openshift.io/v1
+      kind: DeploymentConfig
+      name: app
+    targetCPUUtilizationPercentage: 80
