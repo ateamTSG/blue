@@ -43,7 +43,6 @@ then
         echo "Creating Pod"
         sleep 5
 fi
-
 # Getting the pod
 # Waiting for container to Run
 touch /tmp/app.lock
@@ -57,9 +56,9 @@ do
                 rm -f /tmp/app.lock
           fi
 done
+# Define autoScaler
+oc autoscale dc/app --min 3 --max 6 --cpu-percent=90
 # Exposing the RC route URL
 $OC expose -n $PROJ svc/app
-echo "-------------------------------------------------------"
-echo "Connect to URL: `$OC get -n $PROJ route | awk 'NR==2{print $2}'`"
-echo "-------------------------------------------------------"
-
+echo ""
+echo "--------- Auto Deploy Script Done! --------------"
