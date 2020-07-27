@@ -1,0 +1,64 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+    openshift.io/image.dockerRepositoryCheck: "2020-07-26T12:31:52Z"
+  creationTimestamp: "2020-07-26T12:31:51Z"
+  generation: 2
+  labels:
+    app: mongo
+  name: db
+  resourceVersion: "5448487"
+  uid: 734f2196-739e-4b67-969d-83c6574a4f4c
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      openshift.io/imported-from: bluewhalecr.azurecr.io/mongo_custom:latest
+    from:
+      kind: DockerImage
+      name: bluewhalecr.azurecr.io/mongo_custom:latest
+    generation: 2
+    importPolicy: {}
+    name: latest
+    referencePolicy:
+      type: Source
+status:
+  dockerImageRepository: image-registry.openshift-image-registry.svc:5000/rocketchat-example/db
+  tags:
+  - items:
+    - created: "2020-07-26T12:31:52Z"
+      dockerImageReference: bluewhalecr.azurecr.io/mongo_custom@sha256:7af1ff8e2b2aa25c630c73d90af34101784eac0017bb2da98d304f1a906e8f71
+      generation: 2
+      image: sha256:7af1ff8e2b2aa25c630c73d90af34101784eac0017bb2da98d304f1a906e8f71
+    tag: latest
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+    openshift.io/image.dockerRepositoryCheck: "2020-07-26T14:37:16Z"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: rc
+  name: app
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      openshift.io/imported-from: bluewhalecr.azurecr.io/rocketchat:latest
+    from:
+      kind: DockerImage
+      name: bluewhalecr.azurecr.io/rocketchat:latest
+    generation: 1
+    importPolicy: {}
+    name: latest
+    referencePolicy:
+      type: Source
+status:
+  dockerImageRepository: image-registry.openshift-image-registry.svc:5000/app
