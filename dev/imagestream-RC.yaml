@@ -21,7 +21,8 @@ spec:
       kind: DockerImage
       name: bluewhalecr.azurecr.io/mongo_custom:latest
     generation: 2
-    importPolicy: {}
+    importPolicy: 
+      scheduled: true
     name: latest
     referencePolicy:
       type: Source
@@ -56,7 +57,8 @@ spec:
       kind: DockerImage
       name: bluewhalecr.azurecr.io/rocketchat:latest
     generation: 1
-    importPolicy: {}
+    importPolicy:
+      scheduled: true
     name: latest
     referencePolicy:
       type: Source
