@@ -3,6 +3,11 @@
 OC=$(which oc)
 PROJ='blue-seal-project'
 
+## Creating Secret to connect to Azure's Container registry
+$OC create -n $PROJ -f secret-CR.yaml
+
+## Creating Volumes
+
 ## Creating ImageStream
 $OC create -n $PROJ -f imagestream-RC.yaml
 
