@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: "2020-08-02T12:09:28Z"
+  labels:
+    app: hellodemo
+    app.kubernetes.io/component: hellodemo
+    app.kubernetes.io/instance: hellodemo
+  name: hellodemo
+  namespace: hello-demo
+  resourceVersion: "8261436"
+  selfLink: /api/v1/namespaces/hello-demo/services/hellodemo
+  uid: 240ca79d-5f67-4deb-833d-d0aa5a9cb989
+spec:
+  clusterIP: 172.30.166.156
+  ports:
+  - name: 3000-tcp
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    deploymentconfig: hellodemo
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
