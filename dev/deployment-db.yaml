@@ -62,7 +62,13 @@ spec:
         ports:
         - containerPort: 27017
           protocol: TCP
-        resources: {}
+        resources: 
+          requests:
+            cpu: 100Mi
+            memory: 243Mi
+          limits:
+            cpu: 300Mi
+            memory: 750Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:

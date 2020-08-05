@@ -11,6 +11,8 @@ $OC create -n $PROJ -f secret-CR.yaml
 ## Creating ImageStream
 $OC create -n $PROJ -f imagestream-RC.yaml
 
+## Creating ConfigMap from env file
+oc create configmap rocketenv --from-file=rocket-chat-env.txt -n $PROJ
 
 # Deploying DB
 ## Creating Deployment Config
