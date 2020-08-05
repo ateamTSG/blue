@@ -1,0 +1,110 @@
+apiVersion: v1
+items:
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-08-02T12:09:28Z"
+    generation: 48
+    labels:
+      app: hellodemo
+      app.kubernetes.io/component: hellodemo
+      app.kubernetes.io/instance: hellodemo
+    name: hellodemo
+    namespace: hello-demo
+    resourceVersion: "9288749"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/hello-demo/deploymentconfigs/hellodemo
+    uid: 27e87f39-2d05-46c3-b0cf-8e55e653316d
+  spec:
+    replicas: 3
+    revisionHistoryLimit: 10
+    selector:
+      deploymentconfig: hellodemo
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deploymentconfig: hellodemo
+      spec:
+        containers:
+        - image: bluewhalecr.azurecr.io/hellodemo@sha256:01dc028d33c2b8d3e7a979bf04261938bad4d6d32f4eef28213329956efd6d3a
+          imagePullPolicy: Always
+          name: hellodemo
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 250Mi
+              memory: 250Mi
+            limits:
+              cpu: 750Mi
+              memory: 500Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - hellodemo
+        from:
+          kind: ImageStreamTag
+          name: hellodemo:latest
+          namespace: hello-demo
+        lastTriggeredImage: bluewhalecr.azurecr.io/hellodemo@sha256:01dc028d33c2b8d3e7a979bf04261938bad4d6d32f4eef28213329956efd6d3a
+      type: ImageChange
+  status:
+    availableReplicas: 3
+    conditions:
+    - lastTransitionTime: "2020-08-04T11:46:00Z"
+      lastUpdateTime: "2020-08-04T11:46:04Z"
+      message: replication controller "hellodemo-5" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-08-04T12:44:42Z"
+      lastUpdateTime: "2020-08-04T12:44:42Z"
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    details:
+      causes:
+      - type: ConfigChange
+      message: config change
+    latestVersion: 5
+    observedGeneration: 48
+    readyReplicas: 3
+    replicas: 3
+    unavailableReplicas: 0
+    updatedReplicas: 3
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: rq-default
+spec:
+  hard:
+    configmaps: "3" 
+    persistentvolumeclaims: "4" 
+    replicationcontrollers: "10" 
+    secrets: "20" 
+    services: "7"
+    pods: "7" 
+    requests.cpu: "20" 
+    requests.memory: 10Gi
+    requests.storage: 10
+    limits.cpu: "25" 
+    limits.memory: 15Gi
