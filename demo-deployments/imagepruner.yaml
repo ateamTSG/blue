@@ -10,10 +10,10 @@ items:
     selfLink: /apis/imageregistry.operator.openshift.io/v1/imagepruners/cluster
     uid: 74eb0727-8275-4846-8896-bfe8cce6d368
   spec:
-    failedJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 5
     keepTagRevisions: 3
     schedule: "0 0 * * *"
-    successfulJobsHistoryLimit: 3
+    successfulJobsHistoryLimit: 5
     suspend: true
   status:
     conditions:
