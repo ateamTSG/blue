@@ -1,0 +1,18 @@
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  annotations:
+    openshift.io/description: "Demonstration project - TSG"
+    openshift.io/display-name: "hello-demo"
+    openshift.io/sa.scc.mcs: s0:c25,c20
+    openshift.io/sa.scc.supplemental-groups: 1000640000/10000
+    openshift.io/sa.scc.uid-range: 1000640000/10000
+  creationTimestamp: "2020-08-02T10:21:08Z"
+  name: hello-demo
+  resourceVersion: "8230541"
+  selfLink: /apis/project.openshift.io/v1/projects/hello-demo
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active
