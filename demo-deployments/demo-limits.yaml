@@ -1,3 +1,6 @@
+---
+# A Team limits yaml - TzahiA
+# This isn't normally used instead use the Resource quota (Different App Limit requires)
 apiVersion: "v1"
 kind: "LimitRange"
 metadata:

@@ -1,18 +1,13 @@
+---
+# This is a 
 apiVersion: v1
 items:
 - apiVersion: autoscaling/v1
   kind: HorizontalPodAutoscaler
   metadata:
     annotations:
-      autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2020-08-04T12:44:33Z","reason":"SucceededGetScale","message":"the
-        HPA controller was able to get the target''s current scale"},{"type":"ScalingActive","status":"False","lastTransitionTime":"2020-08-04T12:44:49Z","reason":"FailedGetResourceMetric","message":"the
-        HPA was unable to compute the replica count: missing request for cpu"}]'
-    creationTimestamp: "2020-08-04T12:44:18Z"
     name: hellodemo
     namespace: hello-demo
-    resourceVersion: "9288821"
-    selfLink: /apis/autoscaling/v1/namespaces/hello-demo/horizontalpodautoscalers/hellodemo
-    uid: a04550be-1ef1-43d5-b2e3-2508d165f330
   spec:
     maxReplicas: 6
     minReplicas: 1

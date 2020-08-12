@@ -1,17 +1,17 @@
+---
+# A Team Demo Deployment v1.0 - TzahiA
+# This is the default Resource quota per project
+#
 apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: rq-default
 spec:
   hard:
-    configmaps: "3" 
-    persistentvolumeclaims: "4" 
-    replicationcontrollers: "10" 
-    secrets: "20" 
-    services: "7"
-    pods: "7" 
-    requests.cpu: "20" 
-    requests.memory: 10Gi
-    requests.storage: 10
-    limits.cpu: "25" 
-    limits.memory: 15Gi
+    # Make sure you set the requests/cpu and requests/mem on the Deployment config before
+    requests.cpu: "30" 
+    requests.memory: "40Gi"
+    pods: "10"
+    resourcequotas: "1"
+    services.loadbalancers: "5"
+    requests.storage: "100Gi"

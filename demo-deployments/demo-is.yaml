@@ -1,3 +1,7 @@
+---
+# A Team ImageStream Yaml - TzahiA
+# This will install an image stream for the hello-demo app which will connect to the Azure CR via Secret
+#
 apiVersion: v1
 items:
 - apiVersion: image.openshift.io/v1
@@ -5,8 +9,6 @@ items:
   metadata:
     annotations:
       openshift.io/generated-by: OpenShiftNewApp
-      openshift.io/image.dockerRepositoryCheck: "2020-08-02T12:31:12Z"
-    creationTimestamp: "2020-08-02T12:09:28Z"
     generation: 6
     labels:
       app: hellodemo
@@ -14,9 +16,6 @@ items:
       app.kubernetes.io/instance: hellodemo
     name: hellodemo
     namespace: hello-demo
-    resourceVersion: "8273818"
-    selfLink: /apis/image.openshift.io/v1/namespaces/hello-demo/imagestreams/hellodemo
-    uid: 10077a26-58db-4b91-b0ae-188935395284
   spec:
     lookupPolicy:
       local: false
@@ -27,25 +26,11 @@ items:
         kind: DockerImage
         name: bluewhalecr.azurecr.io/hellodemo:latest
       generation: 4
+      # This will Auto check for new image every 15 min
+      # You can instead use the command: oc import-image hellodemo:latest
+      #
       importPolicy:
         scheduled: true
       name: latest
       referencePolicy:
         type: Source
-  status:
-    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/hello-demo/hellodemo
-    tags:
-    - items:
-      - created: "2020-08-02T12:31:12Z"
-        dockerImageReference: bluewhalecr.azurecr.io/hellodemo@sha256:63c73b18a6b8d38aa2a28e5ec42f20b778355ae7c77278cce219d81c90284224
-        generation: 4
-        image: sha256:63c73b18a6b8d38aa2a28e5ec42f20b778355ae7c77278cce219d81c90284224
-      - created: "2020-08-02T12:09:29Z"
-        dockerImageReference: bluewhalecr.azurecr.io/hellodemo@sha256:d80b7d6fee948ec5f16a5ece68209a59d30da67029809d3138028a96c04c663b
-        generation: 2
-        image: sha256:d80b7d6fee948ec5f16a5ece68209a59d30da67029809d3138028a96c04c663b
-      tag: latest
-kind: List
-metadata:
-  resourceVersion: ""
-  selfLink: ""

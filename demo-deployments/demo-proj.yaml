@@ -1,3 +1,6 @@
+# A Team - Create a project name hello-demo
+# Added desc - TzahiA
+#
 apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
